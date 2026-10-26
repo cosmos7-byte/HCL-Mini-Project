@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediPredict AI - Early Disease Prediction System</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="brand">
+                <div class="brand-icon">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="brand-title">MediPredict AI</h1>
+                    <span class="brand-subtitle">Early Disease Prediction & Risk Stratification System</span>
+                </div>
+            </div>
+            <div class="nav-status">
+                <span class="status-indicator"></span>
+                <span class="status-text">AI Diagnostic Engine Online</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <!-- Hero Banner -->
+        <section class="hero-card">
+            <div class="hero-content">
+                <span class="hero-badge">CLINICAL INTELLIGENCE PLATFORM</span>
+                <h2>Early Disease Detection Using Machine Learning</h2>
+                <p>Proactively screen for Diabetes, Cardiovascular Disease, Hypertension, Chronic Kidney Disease, and Liver Steatosis before symptoms become irreversible. Built with clinically calibrated predictive algorithms.</p>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-box">
+                    <span class="stat-number" id="stat-accuracy">96.8%</span>
+                    <span class="stat-label">Model Test Accuracy</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">5+</span>
+                    <span class="stat-label">Chronic Conditions</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">16</span>
+                    <span class="stat-label">Vital Biomarkers</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation Tabs -->
+        <div class="tab-navigation">
+            <button class="tab-btn active" data-tab="tab-multi">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                Comprehensive Screening
+            </button>
+            <button class="tab-btn" data-tab="tab-specialized">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
+                Specialized Calculators
+            </button>
+            <button class="tab-btn" data-tab="tab-analytics">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                Model Performance & Explainability
+            </button>
+        </div>
+
+        <!-- TAB 1: COMPREHENSIVE SCREENING -->
+        <section id="tab-multi" class="tab-panel active">
+            <!-- Preset Sample Patients Bar -->
+            <div class="preset-bar">
+                <span class="preset-label">Quick Test Profiles:</span>
+                <button type="button" class="preset-btn" onclick="loadSampleProfile('healthy')">
+                    <span class="dot healthy"></span> Healthy Individual
+                </button>
+                <button type="button" class="preset-btn" onclick="loadSampleProfile('diabetes')">
+                    <span class="dot warning"></span> Early Diabetes
+                </button>
+                <button type="button" class="preset-btn" onclick="loadSampleProfile('cardiac')">
+                    <span class="dot danger"></span> Cardiac Risk
+                </button>
+                <button type="button" class="preset-btn" onclick="loadSampleProfile('hypertension')">
+                    <span class="dot warning"></span> Hypertension
+                </button>
+                <button type="button" class="preset-btn" onclick="loadSampleProfile('kidney')">
+                    <span class="dot danger"></span> Renal / Kidney Risk
+                </button>
+                <button type="button" class="preset-btn" onclick="loadSampleProfile('liver')">
+                    <span class="dot warning"></span> Hepatic / Liver Risk
+                </button>
+            </div>
+
+            <div class="content-grid">
+                <!-- Patient Input Form -->
+                <div class="card form-card">
+                    <div class="card-header">
+                        <h3>Patient Clinical Indicators & Biomarkers</h3>
+                        <p>Provide baseline vital signs, lipid profile, and glycemic markers.</p>
+                    </div>
+
+                    <form id="multi-disease-form">
+                        <!-- Demographics & Vitals -->
+                        <h4 class="section-title">1. Demographics & Hemodynamics</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="m_age">Age (years)</label>
+                                <input type="number" id="m_age" name="age" min="18" max="100" value="45" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="m_gender">Gender</label>
+                                <select id="m_gender" name="gender" required>
+                                    <option value="1">Male</option>
+                                    <option value="0">Female</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="m_bmi">BMI (kg/m²)</label>
+                                <input type="number" step="0.1" id="m_bmi" name="bmi" min="15" max="55" value="26.4" required>
+                                <span class="input-hint">Normal: 18.5 - 24.9</span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="m_systolic_bp">Systolic BP (mmHg)</label>
+                                <input type="number" id="m_systolic_bp" name="systolic_bp" min="80" max="220" value="128" required>
+                                <span class="input-hint">Normal: &lt; 120</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="m_diastolic_bp">Diastolic BP (mmHg)</label>
+                                <input type="number" id="m_diastolic_bp" name="diastolic_bp" min="50" max="130" value="82" required>
+                                <span class="input-hint">Normal: &lt; 80</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="m_heart_rate">Resting Heart Rate (bpm)</label>
+                                <input type="number" id="m_heart_rate" name="heart_rate" min="45" max="150" value="74" required>
+                                <span class="input-hint">Normal: 60 - 100</span>
+                            </div>
+                        </div>
+
+                        <!-- Metabolic & Organ Function Labs -->
+                        <h4 class="section-title">2. Blood Biochemistry & Organ Biomarkers</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="m_fasting_glucose">Fasting Blood Glucose (mg/dL)</label>
+                                <input type="number" step="0.1" id="m_fasting_glucose" name="fasting_glucose" min="50" max="350" value="98" required>
+                                <span class="input-hint">Normal: 70 - 99</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="m_hba1c">HbA1c Level (%)</label>
+                                <input type="number" step="0.1" id="m_hba1c" name="hba1c" min="4.0" max="15.0" value="5.4" required>
+                                <span class="input-hint">Normal: &lt; 5.7%</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="m_cholesterol">Total Cholesterol (mg/dL)</label>
+                                <input type="number" step="0.1" id="m_cholesterol" name="cholesterol" min="100" max="400" value="195" required>
+                                <span class="input-hint">Normal: &lt; 200</span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="m_serum_creatinine">Serum Creatinine (mg/dL)</label>
+                                <input type="number" step="0.01" id="m_serum_creatinine" name="serum_creatinine" min="0.4" max="8.0" value="0.95" required>
+                                <span class="input-hint">Normal: 0.6 - 1.2</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="m_alt_liver">ALT / SGPT Enzyme (U/L)</label>
+                                <input type="number" step="0.1" id="m_alt_liver" name="alt_liver_enzyme" min="5" max="250" value="28" required>
+                                <span class="input-hint">Normal: 7 - 56</span>
+                            </div>
+                        </div>
+
+                        <!-- Lifestyle & Symptoms -->
+                        <h4 class="section-title">3. Lifestyle & Symptom Factors</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="m_smoking">Smoking Habit</label>
+                                <select id="m_smoking" name="smoking" required>
+                                    <option value="0">No / Non-Smoker</option>
+                                    <option value="1">Yes / Active Smoker</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="m_physical_activity">Weekly Exercise (Hours)</label>
+                                <input type="number" step="0.5" id="m_physical_activity" name="physical_activity_hours" min="0" max="20" value="3.5" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="m_family_history">Family History of Chronic Illness</label>
+                                <select id="m_family_history" name="family_history" required>
+                                    <option value="0">No known history</option>
+                                    <option value="1">Yes (Parent/Sibling)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="m_chest_pain">Chest Pain / Discomfort</label>
+                                <select id="m_chest_pain" name="chest_pain_type" required>
+                                    <option value="0">None / Normal</option>
+                                    <option value="1">Mild / Occasional Non-Anginal</option>
+                                    <option value="2">Severe / Exertional Angina</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="m_fatigue">Subjective Fatigue Score (1-10)</label>
+                                <input type="range" id="m_fatigue" name="fatigue_score" min="1" max="10" value="3" oninput="document.getElementById('fatigue_val').innerText = this.value">
+                                <span class="range-display">Current: <b id="fatigue_val">3</b> / 10</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn" id="btn-predict-multi">
+                            <span class="btn-spinner" id="multi-spinner"></span>
+                            <span class="btn-text">Run Early Disease Diagnostic Screening</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Prediction Results Dashboard -->
+                <div class="card result-card" id="result-container">
+                    <div class="empty-state" id="empty-state">
+                        <div class="empty-icon">
+                            <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#94a3b8" stroke-width="1.5">
+                                <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                        </div>
+                        <h3>No Diagnostic Run Yet</h3>
+                        <p>Fill out the clinical parameters on the left or select a quick test profile to run the AI prediction model.</p>
+                    </div>
+
+                    <div class="diagnostic-result hidden" id="diagnostic-result">
+                        <div class="result-top">
+                            <div class="diagnosis-badge" id="diagnosis-badge">
+                                <span class="badge-dot"></span>
+                                <span id="res-disease-name">Healthy</span>
+                            </div>
+                            <div class="risk-meter" id="risk-meter">
+                                <span class="risk-label" id="res-risk-tier">Optimal Risk</span>
+                            </div>
+                        </div>
+
+                        <div class="confidence-box">
+                            <div class="conf-header">
+                                <span>Model Confidence:</span>
+                                <b id="res-confidence">96.4%</b>
+                            </div>
+                            <div class="conf-bar-bg">
+                                <div class="conf-bar-fill" id="res-confidence-bar" style="width: 96.4%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Multiclass Probability Distribution -->
+                        <div class="probability-section">
+                            <h4>Multiclass Diagnostic Probability Distribution</h4>
+                            <div class="prob-list" id="res-prob-list">
+                                <!-- Populated dynamically by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Biomarker Health Flags -->
+                        <div class="biomarker-flags-section">
+                            <h4>Clinical Biomarker Risk Flags</h4>
+                            <div class="biomarker-tags" id="res-biomarkers">
+                                <!-- Populated dynamically by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Clinical Advice & Next Steps -->
+                        <div class="advice-section">
+                            <h4>Personalized Clinical Recommendations</h4>
+                            <ul class="advice-list" id="res-recommendations">
+                                <!-- Populated dynamically by JS -->
+                            </ul>
+                        </div>
+
+                        <div class="result-actions">
+                            <button type="button" class="action-btn secondary" onclick="window.print()">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                                Print Clinical Summary
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: SPECIALIZED CALCULATORS -->
+        <section id="tab-specialized" class="tab-panel">
+            <div class="specialized-grid">
+                <!-- Diabetes Card -->
+                <div class="card sub-model-card">
+                    <div class="sub-header">
+                        <div class="sub-icon dia">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                        </div>
+                        <div>
+                            <h4>Diabetes Mellitus Predictor</h4>
+                            <span class="sub-desc">Calibrated on Pima Indian & CDC glycemic criteria</span>
+                        </div>
+                    </div>
+                    <form id="form-specialized-diabetes" class="sub-form">
+                        <div class="sub-inputs">
+                            <div class="form-group">
+                                <label>Pregnancies</label>
+                                <input type="number" id="dia_preg" value="2" min="0" max="15">
+                            </div>
+                            <div class="form-group">
+                                <label>Glucose (mg/dL)</label>
+                                <input type="number" id="dia_gluc" value="145" min="40" max="300">
+                            </div>
+                            <div class="form-group">
+                                <label>Blood Pressure (mmHg)</label>
+                                <input type="number" id="dia_bp" value="78" min="40" max="140">
+                            </div>
+                            <div class="form-group">
+                                <label>Skin Thickness (mm)</label>
+                                <input type="number" id="dia_skin" value="28" min="0" max="90">
+                            </div>
+                            <div class="form-group">
+                                <label>Insulin (µU/mL)</label>
+                                <input type="number" id="dia_ins" value="150" min="0" max="600">
+                            </div>
+                            <div class="form-group">
+                                <label>BMI (kg/m²)</label>
+                                <input type="number" step="0.1" id="dia_bmi" value="32.5" min="15" max="50">
+                            </div>
+                            <div class="form-group">
+                                <label>Pedigree Function</label>
+                                <input type="number" step="0.01" id="dia_dpf" value="0.55" min="0.05" max="2.5">
+                            </div>
+                            <div class="form-group">
+                                <label>Age (years)</label>
+                                <input type="number" id="dia_age" value="48" min="18" max="95">
+                            </div>
+                        </div>
+                        <button type="submit" class="submit-btn mini">Evaluate Diabetes Risk</button>
+                    </form>
+                    <div class="sub-result hidden" id="dia-result">
+                        <div class="sub-res-title" id="dia-res-title">High Risk</div>
+                        <div class="sub-res-prob" id="dia-res-prob">Probability: 84.5%</div>
+                        <p id="dia-res-rec" class="sub-res-rec"></p>
+                    </div>
+                </div>
+
+                <!-- Heart Disease Card -->
+                <div class="card sub-model-card">
+                    <div class="sub-header">
+                        <div class="sub-icon heart">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                        </div>
+                        <div>
+                            <h4>Cardiovascular Risk Predictor</h4>
+                            <span class="sub-desc">Calibrated on Cleveland & Framingham Heart studies</span>
+                        </div>
+                    </div>
+                    <form id="form-specialized-heart" class="sub-form">
+                        <div class="sub-inputs">
+                            <div class="form-group">
+                                <label>Age</label>
+                                <input type="number" id="hd_age" value="58">
+                            </div>
+                            <div class="form-group">
+                                <label>Sex</label>
+                                <select id="hd_sex">
+                                    <option value="1">Male</option>
+                                    <option value="0">Female</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Chest Pain</label>
+                                <select id="hd_cpt">
+                                    <option value="0">Typical Angina</option>
+                                    <option value="1">Atypical Angina</option>
+                                    <option value="2">Non-Anginal</option>
+                                    <option value="3" selected>Asymptomatic</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Resting BP (mmHg)</label>
+                                <input type="number" id="hd_rbp" value="142">
+                            </div>
+                            <div class="form-group">
+                                <label>Cholesterol (mg/dL)</label>
+                                <input type="number" id="hd_chol" value="265">
+                            </div>
+                            <div class="form-group">
+                                <label>Fasting BS &gt; 120</label>
+                                <select id="hd_fbs">
+                                    <option value="0">No (&le; 120)</option>
+                                    <option value="1">Yes (&gt; 120)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Resting ECG</label>
+                                <select id="hd_recg">
+                                    <option value="0">Normal</option>
+                                    <option value="1" selected>ST-T Wave Abnormality</option>
+                                    <option value="2">Left Ventricular Hypertrophy</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Max Heart Rate</label>
+                                <input type="number" id="hd_maxhr" value="126">
+                            </div>
+                            <div class="form-group">
+                                <label>Exercise Angina</label>
+                                <select id="hd_exang">
+                                    <option value="1" selected>Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Oldpeak ST</label>
+                                <input type="number" step="0.1" id="hd_oldpeak" value="2.1">
+                            </div>
+                            <div class="form-group">
+                                <label>ST Slope</label>
+                                <select id="hd_sts">
+                                    <option value="0">Upsloping</option>
+                                    <option value="1" selected>Flat</option>
+                                    <option value="2">Downsloping</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="submit-btn mini">Evaluate Cardiac Risk</button>
+                    </form>
+                    <div class="sub-result hidden" id="hd-result">
+                        <div class="sub-res-title" id="hd-res-title">Elevated Risk</div>
+                        <div class="sub-res-prob" id="hd-res-prob">Probability: 88.2%</div>
+                        <p id="hd-res-rec" class="sub-res-rec"></p>
+                    </div>
+                </div>
+
+                <!-- Chronic Kidney Disease Card -->
+                <div class="card sub-model-card">
+                    <div class="sub-header">
+                        <div class="sub-icon kidney">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a5 5 0 0 0-5 5v3a5 5 0 0 0 10 0V7a5 5 0 0 0-5-5Z"/><path d="M12 14v8"/></svg>
+                        </div>
+                        <div>
+                            <h4>Chronic Kidney Disease (CKD)</h4>
+                            <span class="sub-desc">Early renal function & filtration assessment</span>
+                        </div>
+                    </div>
+                    <form id="form-specialized-kidney" class="sub-form">
+                        <div class="sub-inputs">
+                            <div class="form-group">
+                                <label>Age</label>
+                                <input type="number" id="kd_age" value="56">
+                            </div>
+                            <div class="form-group">
+                                <label>Blood Pressure</label>
+                                <input type="number" id="kd_bp" value="85">
+                            </div>
+                            <div class="form-group">
+                                <label>Specific Gravity</label>
+                                <input type="number" step="0.005" id="kd_sg" value="1.015">
+                            </div>
+                            <div class="form-group">
+                                <label>Albumin (0-5)</label>
+                                <input type="number" id="kd_al" value="2" min="0" max="5">
+                            </div>
+                            <div class="form-group">
+                                <label>Sugar (0-5)</label>
+                                <input type="number" id="kd_su" value="1" min="0" max="5">
+                            </div>
+                            <div class="form-group">
+                                <label>Blood Urea (mg/dL)</label>
+                                <input type="number" id="kd_bu" value="68">
+                            </div>
+                            <div class="form-group">
+                                <label>Creatinine (mg/dL)</label>
+                                <input type="number" step="0.1" id="kd_sc" value="2.6">
+                            </div>
+                            <div class="form-group">
+                                <label>Sodium (mEq/L)</label>
+                                <input type="number" id="kd_sod" value="134">
+                            </div>
+                            <div class="form-group">
+                                <label>Potassium (mEq/L)</label>
+                                <input type="number" step="0.1" id="kd_pot" value="4.7">
+                            </div>
+                            <div class="form-group">
+                                <label>Hemoglobin (g/dL)</label>
+                                <input type="number" step="0.1" id="kd_hemo" value="10.8">
+                            </div>
+                        </div>
+                        <button type="submit" class="submit-btn mini">Evaluate Renal Risk</button>
+                    </form>
+                    <div class="sub-result hidden" id="kd-result">
+                        <div class="sub-res-title" id="kd-res-title">Early CKD Indicated</div>
+                        <div class="sub-res-prob" id="kd-res-prob">Probability: 91.5%</div>
+                        <p id="kd-res-rec" class="sub-res-rec"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: MODEL PERFORMANCE & EXPLAINABILITY -->
+        <section id="tab-analytics" class="tab-panel">
+            <div class="analytics-container">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Model Evaluation Metrics & Benchmarks</h3>
+                        <p>Rigorous 5-Fold Cross-Validation and Independent Test Set Evaluations.</p>
+                    </div>
+                    <div class="metrics-table-wrapper" id="metrics-table-container">
+                        <table class="metrics-table">
+                            <thead>
+                                <tr>
+                                    <th>Model Name</th>
+                                    <th>Algorithm</th>
+                                    <th>Accuracy</th>
+                                    <th>Precision</th>
+                                    <th>Recall</th>
+                                    <th>F1-Score</th>
+                                </tr>
+                            </thead>
+                            <tbody id="metrics-tbody">
+                                <tr>
+                                    <td><strong>Multi-Disease Screening</strong></td>
+                                    <td><span class="badge blue" id="md-algo">Random Forest / Gradient Boost</span></td>
+                                    <td><b id="md-acc">--</b></td>
+                                    <td id="md-prec">--</td>
+                                    <td id="md-rec">--</td>
+                                    <td><span class="badge green" id="md-f1">--</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Specialized Diabetes</strong></td>
+                                    <td><span class="badge blue">Random Forest</span></td>
+                                    <td><b id="dia-acc">--</b></td>
+                                    <td id="dia-prec">--</td>
+                                    <td id="dia-rec">--</td>
+                                    <td><span class="badge green" id="dia-f1">--</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Specialized Heart Disease</strong></td>
+                                    <td><span class="badge blue">Gradient Boosting</span></td>
+                                    <td><b id="hd-acc">--</b></td>
+                                    <td id="hd-prec">--</td>
+                                    <td id="hd-rec">--</td>
+                                    <td><span class="badge green" id="hd-f1">--</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Specialized Chronic Kidney</strong></td>
+                                    <td><span class="badge blue">Random Forest</span></td>
+                                    <td><b id="kd-acc">--</b></td>
+                                    <td id="kd-prec">--</td>
+                                    <td id="kd-rec">--</td>
+                                    <td><span class="badge green" id="kd-f1">--</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Visual Charts Section -->
+                <div class="analytics-plots-grid">
+                    <div class="card plot-card">
+                        <div class="card-header">
+                            <h4>Multi-Disease Confusion Matrix</h4>
+                            <p>Diagnostic validation across test patient samples.</p>
+                        </div>
+                        <div class="plot-box">
+                            <img src="/static/reports/multi_disease_cm.png" alt="Multi Disease Confusion Matrix" onerror="this.src='/static/reports/placeholder.png'; this.alt='Plot generating...';">
+                        </div>
+                    </div>
+
+                    <div class="card plot-card">
+                        <div class="card-header">
+                            <h4>Biomarker Feature Importance (Gini)</h4>
+                            <p>Top clinical indicators driving the early prediction decisions.</p>
+                        </div>
+                        <div class="plot-box">
+                            <img src="/static/reports/multi_disease_fi.png" alt="Feature Importance Plot" onerror="this.src='/static/reports/placeholder.png'; this.alt='Plot generating...';">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p><strong>MediPredict AI</strong> &bull; HCL Mini Project &bull; Machine Learning for Early Chronic Disease Detection & Healthcare Analytics.</p>
+    </footer>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
